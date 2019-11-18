@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/yellowWorld.unity
     guid: a8ccba1ac37a74d43ba94f2ecb90f7c3
+  - enabled: 1
+    path: Assets/Scenes/redWorld.unity
+    guid: d02aeb7c0b122d546a939a6bf70a1fb8
+  - enabled: 1
+    path: Assets/Scenes/winScreen.unity
+    guid: 0cb6a10145a21a84d8496582df3ac5f8
   m_configObjects: {}

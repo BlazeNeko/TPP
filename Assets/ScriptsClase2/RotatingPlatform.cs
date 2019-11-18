@@ -45,7 +45,7 @@ public class RotatingPlatform : MonoBehaviour {
 	/// <summary>
 	/// Cantidad de grados que la plataforma girara antes de pararse cuando es PERIODIC
 	/// </summary>
-	private float m_LoopLimit = 180.0f;
+	private float m_LoopLimit = 90.0f;
 	
 	/// <summary>
 	/// Variable interna para controlar la espera "parado"

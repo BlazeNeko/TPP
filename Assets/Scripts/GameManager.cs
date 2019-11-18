@@ -192,13 +192,14 @@ public class GameManager : MonoBehaviour
 	{
 		// Si el nivel no está cargado, se carga
 		if (!m_LevelsLoaded.Contains(doorColor))
-		{
-			string levelName = m_LevelNames[doorColor];
+        {
+            string levelName = m_LevelNames[doorColor];
 			SceneManager.LoadScene(levelName,LoadSceneMode.Additive);
 			// Es muy importante añadir el nivel como cargado
 			m_LevelsLoaded.Add(doorColor);
-		}
-		else
+
+        }
+        else
 			Debug.LogWarning("El nivel [" + m_LevelNames[doorColor] + "] ya se ha cargado. No se va a volver a realizar la carga");
 	}
 
@@ -213,4 +214,10 @@ public class GameManager : MonoBehaviour
 		m_Doors.TryGetValue(color, out doorGo);
 		return doorGo;
 	}
+
+    public void TriggerLoadNotAdditive(string levelName) { 
+  
+     SceneManager.LoadScene(levelName, LoadSceneMode.Single);
+      
+    }
 }

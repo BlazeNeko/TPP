@@ -7,7 +7,7 @@ public class StickyFloor : MonoBehaviour
     private Vector3 m_EnterScale = Vector3.one;
     public Transform m_globalParent = null; //Por defecto el padre global será la raiz de la escena pero podría ser que no fuera así.
     public Transform m_transformToAttach;
-
+    private Vector3 rotation_aux;
     void Start()
     {
         if (m_transformToAttach == null)
@@ -24,10 +24,13 @@ public class StickyFloor : MonoBehaviour
             //Ampliación: Si la superficie está inclinada 45º o más, no attachar. Se usa el componente Raycaster de "other" para el cálculo del ángulo.
             Raycaster raycaster = other.GetComponent<Raycaster>();
             
-            if (raycaster && Vector3.Angle(raycaster.hit.normal, Vector3.up) < 45){
+            if (raycaster && Vector3.Angle(raycaster.m_hit.normal, Vector3.up) < 45){
+                rotation_aux = other.transform.eulerAngles;
                 m_EnterScale = other.transform.localScale;
                 other.transform.parent = m_transformToAttach;
                 atachable.IsAttached = true;
+                other.transform.eulerAngles = new Vector3(0f, other.transform.eulerAngles.y, 0f);
+
             }
         }
     }
@@ -36,14 +39,19 @@ public class StickyFloor : MonoBehaviour
     {
 
         Attachable atachable = other.GetComponent<Attachable>();
+        Raycaster raycaster = other.GetComponent<Raycaster>();
         //Si la inclinación de la plataforma supera los 45º, soltar attach.
-        if (atachable && atachable.IsAttached && Vector3.Angle(new Vector3(0, 1, 0), new Vector3(0, 1, 0)) > 45)
+        if (atachable && atachable.IsAttached && Vector3.Angle(raycaster.m_hit.normal, Vector3.up) > 45)
         {
             other.transform.parent = m_globalParent;
             other.transform.localScale = m_EnterScale;
             atachable.IsAttached = false;
+            other.transform.eulerAngles = new Vector3(0f, other.transform.eulerAngles.y, 0f);
+
         }
+
     }
+
     void OnTriggerExit(Collider other)
     {
         //TODO 2: Cuando el objeto que caiga sea attachable, como estamos saliendo, desatachamos el objeto. Ojo, la scala puede cambiar!!!
@@ -53,6 +61,7 @@ public class StickyFloor : MonoBehaviour
             other.transform.parent = m_globalParent;
             other.transform.localScale = m_EnterScale;
             atachable.IsAttached = false;
+            other.transform.eulerAngles = new Vector3(0f, other.transform.eulerAngles.y, 0f);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
@@ -13,7 +14,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
 
-        
+
         private void Start()
         {
             // get the transform of the main camera
@@ -39,6 +40,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
+
+            
         }
 
 
@@ -72,4 +75,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_Jump = false;
         }
     }
+
+
 }
